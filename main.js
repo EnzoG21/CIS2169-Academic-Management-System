@@ -4,7 +4,7 @@ var btn = document.getElementById("btn");
 
 btn.addEventListener("click", function(){
   var ourRequest = new XMLHttpRequest();
-  ourRequest.open('GET', 'https://raw.githubusercontent.com/profharimohanpandey/CW2/master/module-'+ pageCounter +'.json');
+  ourRequest.open('GET', 'module-'+ pageCounter +'.json'); // changed URL to local file path
   ourRequest.onload = function(){
     var ourData = JSON.parse(ourRequest.responseText);
     renderHTML(ourData);
@@ -19,44 +19,42 @@ btn.addEventListener("click", function(){
 });
 
 function renderHTML(data){
+  var academics = {}; // object to store modules for each academic
+
+  for (var i = 0; i < data.length; i++) {
+    var academic = data[i].Academic;
+    if (!academics[academic]) {
+      academics[academic] = []; // create empty array if academic doesn't exist in object
+    }
+    academics[academic].push(data[i]); // push module into academic array
+  }
+
+  var moduleContainer = document.getElementById('module-info');
   var htmlString = "";
 
-  for(i = 0; i < data.length; i++){
-    htmlString += "<p>" + data[i].Name + " is a " + data[i].Course + " has assements "; //".</p>";
-    for(ii = 0; ii < data[i].Module.Assignment.length; ii++){
-      if (ii == 0){
-        htmlString += data[i].Module.Assignment[ii];
-      } else {
-        htmlString += " and " + data[i].Module.Assignment[ii];
-      }
-    }
-    htmlString += ' and Learning Outcome ';
-    for(ii = 0; ii < data[i].Module.Learning_outcomes.length; ii++){
-      if (ii == 0){
-        htmlString += data[i].Module.Learning_outcomes[ii];
-      } else {
-        htmlString += " and " + data[i].Module.Learning_outcomes[ii];
-      }
-    }
+  for (var academic in academics) {
+    htmlString += "<div class='row'>";
+    htmlString += "<div class='col'><h2>" + academic + "</h2></div>";
+    htmlString += "</div>";
 
-    htmlString += ' and Volume ';
-    for(ii = 0; ii < data[i].Module.Volume.length; ii++){
-      if (ii == 0){
-        htmlString += data[i].Module.Volume[ii];
-      } else {
-        htmlString += " and " + data[i].Module.Volume[ii];
-      }
+    var academicModules = academics[academic];
+    for (var j = 0; j < academicModules.length; j++) {
+      var module = academicModules[j];
+      htmlString += "<div class='card mb-3'>";
+      htmlString += "<div class='card-body'>";
+      htmlString += "<h5 class='card-title'>" + module.Name + "</h5>";
+      htmlString += "<p class='card-text'>Course: " + module.Course + "</p>";
+      htmlString += "<p class='card-text'>Academic: " + module.Academic + "</p>";
+      htmlString += "<p class='card-text'>Programme Code: " + module.ProgrammeCode + "</p>";
+      htmlString += "<p class='card-text'>Assessments: " + module.Module.Assignment.join(", ") + "</p>";
+      htmlString += "<p class='card-text'>Learning Outcomes: " + module.Module.Learning_outcomes.join(", ") + "</p>";
+      htmlString += "<p class='card-text'>Volume: " + module.Module.Volume.join(", ") + "</p>";
+      htmlString += "<p class='card-text'>Weights: " + module.Module.weights.join(", ") + "</p>";
+      htmlString += "</div>";
+      htmlString += "</div>";
     }
-
-    htmlString += ' and weights ';
-    for(ii = 0; ii < data[i].Module.weights.length; ii++){
-      if (ii == 0){
-        htmlString += data[i].Module.weights[ii];
-      } else {
-        htmlString += " and " + data[i].Module.weights[ii];
-      }
-    }
-    htmlString += '.</p>';
   }
-  moduleContainer.insertAdjacentHTML('beforeend', htmlString);
+
+  moduleContainer.innerHTML = htmlString;
 }
+

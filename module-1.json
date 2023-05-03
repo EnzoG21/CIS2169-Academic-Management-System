@@ -10,6 +10,30 @@
       "Volume":["1000 words", "4000 words"],
       "weights":["20%", "80%"]
     }
+  },
+  {
+    "ProgrammeCode": "PGDB",
+    "Name": "Undergraduate",
+    "Academic": "Dr. Bob Johnson",
+    "Course":"Web Development",
+    "Module": {
+      "Learning_outcomes":["LO1", "LO2"],
+      "Assignment":["CW1", "CW2"],
+      "Volume":["1000 words", "4000 words"],
+      "weights":["20%", "80%"]
+    }
+  },
+  {
+    "ProgrammeCode": "PGDB",
+    "Name": "Undergraduate",
+    "Academic": "Dr. Mark Johnson",
+    "Course":"Web Development",
+    "Module": {
+      "Learning_outcomes":["LO1", "LO2"],
+      "Assignment":["CW1", "CW2"],
+      "Volume":["1000 words", "4000 words"],
+      "weights":["20%", "80%"]
+    }
   }
   
 ]
