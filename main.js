@@ -6,17 +6,16 @@ btn.addEventListener("click", function(){
   var ourRequest = new XMLHttpRequest();
   ourRequest.open('GET', 'https://raw.githubusercontent.com/profharimohanpandey/CW2/master/module-'+ pageCounter +'.json');
   ourRequest.onload = function(){
-    //console.log(ourRequest.responseText);
     var ourData = JSON.parse(ourRequest.responseText);
-    //console.log(ourData[0]);
     renderHTML(ourData);
   };
   ourRequest.send();
-pageCounter++;
-if (pageCounter > 3){
-//btn.classList.add("hide-me");
-  btn.disabled = true;
-}
+  
+  pageCounter++;
+  
+  if (pageCounter > 3){
+    btn.disabled = true;
+  }
 });
 
 function renderHTML(data){
@@ -60,5 +59,4 @@ function renderHTML(data){
     htmlString += '.</p>';
   }
   moduleContainer.insertAdjacentHTML('beforeend', htmlString);
-
 }
