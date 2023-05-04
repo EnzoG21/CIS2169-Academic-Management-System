@@ -18,16 +18,6 @@
     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="addmodule.html">Add a module</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="timetable.html">Timetable</a>
-      </li>
-    </ul>
-  </div>
 </nav>
 
 
@@ -42,8 +32,49 @@
         <div id="module-info"></div>
       </div>
     </div>
-  </div>
+    <div class="col-md-8 offset-md-2">
+      <button id="add-module-btn" class="btn btn-success btn-block">Add a new module</button>
+    </div>
+    
+    <div id="form-container" style="display:none;">
+  <form id="module-form">
+    <div class="form-group">
+      <label for="name-input">Name:</label>
+      <input type="text" class="form-control" id="name-input">
+    </div>
+    <div class="form-group">
+      <label for="course-input">Course:</label>
+      <input type="text" class="form-control" id="course-input">
+    </div>
+    <div class="form-group">
+      <label for="academic-input">Academic:</label>
+      <input type="text" class="form-control" id="academic-input">
+    </div>
+    <div class="form-group">
+      <label for="programme-code-input">Programme Code:</label>
+      <input type="text" class="form-control" id="programme-code-input">
+    </div>
+    <div class="form-group">
+      <label for="assignment-input">Assignments:</label>
+      <input type="text" class="form-control" id="assignment-input">
+    </div>
+    <div class="form-group">
+      <label for="learning-outcomes-input">Learning Outcomes:</label>
+      <input type="text" class="form-control" id="learning-outcomes-input">
+    </div>
+    <div class="form-group">
+      <label for="volume-input">Volume:</label>
+      <input type="text" class="form-control" id="volume-input">
+    </div>
+    <div class="form-group">
+      <label for="weights-input">Weights:</label>
+      <input type="text" class="form-control" id="weights-input">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
 
+  </div>
   <script src="main.js"></script>
 </body>
 

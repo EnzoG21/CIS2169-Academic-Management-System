@@ -70,3 +70,54 @@ function renderHTML(data){
   moduleContainer.innerHTML = htmlString;
 }
 
+var formContainer = document.getElementById('form-container');
+var form = document.getElementById('module-form');
+var addModuleBtn = document.getElementById('add-module-btn');
+
+// Show form when button is clicked
+addModuleBtn.addEventListener("click", function(){
+  formContainer.style.display = 'block';
+});
+
+// Submit form data
+form.addEventListener("submit", function(e) {
+  e.preventDefault(); // prevent form from refreshing the page
+
+  // Get form data
+  var name = document.getElementById('name-input').value;
+  var course = document.getElementById('course-input').value;
+  var academic = document.getElementById('academic-input').value;
+  var programmeCode = document.getElementById('programme-code-input').value;
+  var assignments = document.getElementById('assignment-input').value.split(',');
+  var learningOutcomes = document.getElementById('learning-outcomes-input').value.split(',');
+  var volume = document.getElementById('volume-input').value.split(',');
+  var weights = document.getElementById('weights-input').value.split(',');
+
+  // Create module object
+  var module = {
+    "Name": name,
+    "Course": course,
+    "Academic": academic,
+    "ProgrammeCode": programmeCode,
+    "Module": {
+      "Assignment": assignments,
+      "Learning_outcomes": learningOutcomes,
+      "Volume": volume,
+      "weights": weights
+    }
+  };
+
+  // Save module object to file
+ var file = 'module-1.json';
+  var content = JSON.stringify(module);
+  var blob = new Blob([content], {type: 'application/json'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = file;
+  a.click();
+
+  // Clear form fields
+  form.reset();
+  formContainer.style.display = 'none';
+});
