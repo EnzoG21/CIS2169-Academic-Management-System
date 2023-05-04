@@ -1,94 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name ="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Coursework2_WebApp</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/styles.css">
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Coursework2_WebApp</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" href="css/styles.css">
+	</head>
 
-<body>
+	<body>
 
- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="index.html">Web Application Development Course Work-2</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-</nav>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="index.html">Web Application Development Course Work-2</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		</nav>
 
 
-  <div class="container mt-5">
-    <div class="row">
-      <div class="col-md-8 offset-md-2">
-        <button id="info" class="btn btn-primary btn-block">Fetch information about the modules</button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-8 offset-md-2">
-        <div id="module-info"></div>
-      </div>
-    </div>
-    <div class="row mt-5">
-  <div class="col-md-8 offset-md-2">
-    <button id="create-timetable-btn" class="btn btn-primary btn-block">Create Timetable</button>
-  </div>
-</div>
-<div class="row mt-5">
-  <div class="col-md-8 offset-md-2">
-    <div id="timetable"></div>
-  </div>
-</div>
-    <div class="row mt-5">
-      <div class="col-md-8 offset-md-2">
-        <button id="add-module-btn" class="btn btn-primary btn-block">Add a new module</button>
-      </div>
-    </div>
-    <div id="form-container" style="display:none;">
-  <form id="module-form">
-    <div class="form-group">
-      <label for="name-input">Name:</label>
-      <input type="text" class="form-control" id="name-input">
-    </div>
-    <div class="form-group">
-      <label for="course-input">Course:</label>
-      <input type="text" class="form-control" id="course-input">
-    </div>
-    <div class="form-group">
-      <label for="academic-input">Academic:</label>
-      <input type="text" class="form-control" id="academic-input">
-    </div>
-    <div class="form-group">
-      <label for="programme-code-input">Programme Code:</label>
-      <input type="text" class="form-control" id="programme-code-input">
-    </div>
-    <div class="form-group">
-      <label for="assignment-input">Assignments:</label>
-      <input type="text" class="form-control" id="assignment-input">
-    </div>
-    <div class="form-group">
-      <label for="learning-outcomes-input">Learning Outcomes:</label>
-      <input type="text" class="form-control" id="learning-outcomes-input">
-    </div>
-    <div class="form-group">
-      <label for="volume-input">Volume:</label>
-      <input type="text" class="form-control" id="volume-input">
-    </div>
-    <div class="form-group">
-      <label for="weights-input">Weights:</label>
-      <input type="text" class="form-control" id="weights-input">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-  </div>
-</div>
+		<div class="container mt-5">
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<button id="info" class="btn btn-primary btn-block">Fetch information about the modules</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<div id="module-info"></div>
+				</div>
+			</div>
+			<div class="row mt-5">
+				<div class="col-md-8 offset-md-2">
+					<button id="create-timetable-btn" class="btn btn-primary btn-block">Create Timetable</button>
+				</div>
+			</div>
+			<div class="row mt-5">
+				<div class="col-md-8 offset-md-2">
+					<div id="timetable"></div>
+				</div>
+			</div>
+
+			<div class="row mt-5">
+				<div class="col-md-8 offset-md-2">
+					<button id="add-module-btn" class="btn btn-primary btn-block">Add a new module</button>
+				</div>
+			</div>
+			<div id="form-container" style="display:none;">
+				<form id="module-form">
+					<div class="form-group">
+						<label for="name-input">Name:</label>
+						<input type="text" class="form-control" id="name-input">
+					</div>
+					<div class="form-group">
+						<label for="course-input">Course:</label>
+						<input type="text" class="form-control" id="course-input">
+					</div>
+					<div class="form-group">
+						<label for="academic-input">Academic:</label>
+						<input type="text" class="form-control" id="academic-input">
+					</div>
+					<div class="form-group">
+						<label for="programme-code-input">Programme Code:</label>
+						<input type="text" class="form-control" id="programme-code-input">
+					</div>
+					<div class="form-group">
+						<label for="assignment-input">Assignments:</label>
+						<input type="text" class="form-control" id="assignment-input">
+					</div>
+					<div class="form-group">
+						<label for="learning-outcomes-input">Learning Outcomes:</label>
+						<input type="text" class="form-control" id="learning-outcomes-input">
+					</div>
+					<div class="form-group">
+						<label for="volume-input">Volume:</label>
+						<input type="text" class="form-control" id="volume-input">
+					</div>
+					<div class="form-group">
+						<label for="weights-input">Weights:</label>
+						<input type="text" class="form-control" id="weights-input">
+					</div>
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+			</div>
+		</div>
 
 
-  </div>
-  <script src="main.js"></script>
-</body>
+		</div>
+		<script src="main.js"></script>
+	</body>
 
 </html>
