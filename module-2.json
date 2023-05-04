@@ -9,7 +9,25 @@
       "Assignment":["CW1", "CW2"],
       "Volume":["1000 words", "4000 words"],
       "weights":["20%", "80%"]
-    }
+    },
+    "Timetable": [
+      {
+        "Day": "Monday",
+        "Time": "10:00-12:00",
+        "Location": "Room A"
+      },
+      {
+        "Day": "Wednesday",
+        "Time": "14:00-16:00",
+        "Location": "Room B"
+      },
+      {
+        "Day": "Friday",
+        "Time": "10:00-12:00",
+        "Location": "Room C"
+      }
+    ]
+    
   }
   
 ]

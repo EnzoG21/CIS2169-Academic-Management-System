@@ -26,28 +26,27 @@ btn.addEventListener("click", function(){
   requestJSON('module-3.json');
 });
 
-function renderHTML(data){
+function renderHTML(data) {
   data.sort(function(a, b) {
-    var nameA = a.Name.toUpperCase(); // ignore upper and lowercase
-    var nameB = b.Name.toUpperCase(); // ignore upper and lowercase
+    var nameA = a.Name.toUpperCase();
+    var nameB = b.Name.toUpperCase();
     if (nameA < nameB) {
       return -1;
     }
     if (nameA > nameB) {
       return 1;
     }
-    // names must be equal
     return 0;
   });
 
-  var modulesByName = {}; // object to store modules for each name
+  var modulesByName = {};
 
   for (var i = 0; i < data.length; i++) {
     var name = data[i].Name;
     if (!modulesByName[name]) {
-      modulesByName[name] = []; // create empty array if name doesn't exist in object
+      modulesByName[name] = [];
     }
-    modulesByName[name].push(data[i]); // push module into name array
+    modulesByName[name].push(data[i]);
   }
 
   var moduleContainer = document.getElementById('module-info');
@@ -73,6 +72,15 @@ function renderHTML(data){
       htmlString += "<p class='card-text'>Learning Outcomes: " + module.Module.Learning_outcomes.join(", ") + "</p>";
       htmlString += "<p class='card-text'>Volume: " + module.Module.Volume.join(", ") + "</p>";
       htmlString += "<p class='card-text'>Weights: " + module.Module.weights.join(", ") + "</p>";
+      htmlString += "<table class='table'>";
+      htmlString += "<thead><tr><th>Day</th><th>Time</th><th>Location</th></tr></thead>";
+      htmlString += "<tbody>";
+      for (var k = 0; k < module.Timetable.length; k++) {
+        var event = module.Timetable[k];
+        htmlString += "<tr><td>" + event.Day + "</td><td>" + event.Time + "</td><td>" + event.Location + "</td></tr>";
+      }
+      htmlString += "</tbody>";
+      htmlString += "</table>";
       htmlString += "</div>";
       htmlString += "</div>";
       htmlString += "</div>";
@@ -82,6 +90,7 @@ function renderHTML(data){
 
   moduleContainer.innerHTML = htmlString;
 }
+
 
 
 var formContainer = document.getElementById('form-container');
