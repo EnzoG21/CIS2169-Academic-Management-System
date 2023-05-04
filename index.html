@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Coursework2_WebApp</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link rel="stylesheet" href="css/styles.css">
@@ -13,7 +13,7 @@
 
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<a class="navbar-brand" href="index.html">Web Application Development Course Work-2</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" >
 				<span class="navbar-toggler-icon"></span>
 			</button>
 		</nav>
@@ -22,9 +22,15 @@
 		<div class="container mt-5">
 			<div class="row">
 				<div class="col-md-8 offset-md-2">
-					<button id="info" class="btn btn-primary btn-block">Fetch information about the modules</button>
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Fetch information about the modules</h5>
+							<button id="info" class="btn btn-primary btn-block">Fetch</button>
+						</div>
+					</div>
 				</div>
 			</div>
+
 			<div class="row">
 				<div class="col-md-8 offset-md-2">
 					<div id="module-info"></div>
@@ -32,9 +38,15 @@
 			</div>
 			<div class="row mt-5">
 				<div class="col-md-8 offset-md-2">
-					<button id="create-timetable-btn" class="btn btn-primary btn-block">Create Timetable</button>
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Create Timetable</h5>
+							<button id="create-timetable-btn" class="btn btn-primary btn-block">Create</button>
+						</div>
+					</div>
 				</div>
 			</div>
+
 			<div class="row mt-5">
 				<div class="col-md-8 offset-md-2">
 					<div id="timetable"></div>
@@ -43,9 +55,15 @@
 
 			<div class="row mt-5">
 				<div class="col-md-8 offset-md-2">
-					<button id="add-module-btn" class="btn btn-primary btn-block">Add a new module</button>
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Add a new module</h5>
+							<button id="add-module-btn" class="btn btn-primary btn-block">Add</button>
+						</div>
+					</div>
 				</div>
 			</div>
+
 			<div id="form-container" style="display:none;">
 				<form id="module-form">
 					<div class="form-group">
@@ -83,9 +101,6 @@
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</form>
 			</div>
-		</div>
-
-
 		</div>
 		<script src="main.js"></script>
 	</body>

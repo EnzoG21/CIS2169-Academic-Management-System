@@ -1,16 +1,16 @@
-var pageCounter = 1;
-var moduleContainer = document.getElementById('module-info');
-var info = document.getElementById("info");
+const pageNum = 1;
+const moduleContainer = document.getElementById('module-info');
+const info = document.getElementById("info");
 
 info.addEventListener("click", function() {
-    var allData = [];
-    var requestCount = 0;
+    const allData = [];
+    let requestCount = 0;
 
     function requestJSON(url) {
-        var ourRequest = new XMLHttpRequest();
+        const ourRequest = new XMLHttpRequest();
         ourRequest.open('GET', url);
         ourRequest.onload = function() {
-            var ourData = JSON.parse(ourRequest.responseText);
+            const ourData = JSON.parse(ourRequest.responseText);
             allData.push(...ourData);
             requestCount++;
 
@@ -28,8 +28,8 @@ info.addEventListener("click", function() {
 
 function renderHTML(data) {
     data.sort(function(a, b) {
-        var nameA = a.Name.toUpperCase();
-        var nameB = b.Name.toUpperCase();
+        const nameA = a.Name.toUpperCase();
+        const nameB = b.Name.toUpperCase();
         if (nameA < nameB) {
             return -1;
         }
@@ -39,63 +39,78 @@ function renderHTML(data) {
         return 0;
     });
 
-    var modulesByName = {};
+    const modulesByName = {};
 
-    for (var i = 0; i < data.length; i++) {
-        var name = data[i].Name;
+    for (const element of data) {
+        const name = element.Name;
         if (!modulesByName[name]) {
             modulesByName[name] = [];
         }
-        modulesByName[name].push(data[i]);
+        modulesByName[name].push(element);
     }
 
-    var moduleContainer = document.getElementById('module-info');
-    var htmlString = "";
+    const htmlString = Object.keys(modulesByName).map(name => {
+        let nameModules = modulesByName[name];
+        let modulesHtmlString = nameModules.map(module => {
+            let moduleHtmlString = `
+                <div class='col-md-7'>
+                    <div class='card mb-3'>
+                        <div class='card-body wider'>
+                            <h5 class='card-title'>${module.Name}</h5>
+                            <p class='card-text'>Course: ${module.Course}</p>
+                            <p class='card-text'>Academic: ${module.Academic}</p>
+                            <p class='card-text'>Programme Code: ${module.ProgrammeCode}</p>
+                            <p class='card-text'>Assessments: ${module.Module.Assignment.join(", ")}</p>
+                            <p class='card-text'>Learning Outcomes: ${module.Module.Learning_outcomes.join(", ")}</p>
+                            <p class='card-text'>Volume: ${module.Module.Volume.join(", ")}</p>
+                            <p class='card-text'>Weights: ${module.Module.weights.join(", ")}</p>
+                            <table class='table'>
+                                <thead>
+                                    <tr>
+                                        <th>Day</th>
+                                        <th>Time</th>
+                                        <th>Location</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${module.Timetable.map(event => `
+                                        <tr>
+                                            <td>${event.Day}</td>
+                                            <td>${event.Time}</td>
+                                            <td>${event.Location}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+            return moduleHtmlString;
+        }).join('');
 
-    for (var name in modulesByName) {
-        htmlString += "<div class='row'>";
-        htmlString += "<div class='col'><h2>" + name + "</h2></div>";
-        htmlString += "</div>";
-
-        var nameModules = modulesByName[name];
-        htmlString += "<div class='row'>";
-        for (var j = 0; j < nameModules.length; j++) {
-            var module = nameModules[j];
-            htmlString += "<div class='col-md-7'>";
-            htmlString += "<div class='card mb-3'>";
-            htmlString += "<div class='card-body wider'>";
-            htmlString += "<h5 class='card-title'>" + module.Name + "</h5>";
-            htmlString += "<p class='card-text'>Course: " + module.Course + "</p>";
-            htmlString += "<p class='card-text'>Academic: " + module.Academic + "</p>";
-            htmlString += "<p class='card-text'>Programme Code: " + module.ProgrammeCode + "</p>";
-            htmlString += "<p class='card-text'>Assessments: " + module.Module.Assignment.join(", ") + "</p>";
-            htmlString += "<p class='card-text'>Learning Outcomes: " + module.Module.Learning_outcomes.join(", ") + "</p>";
-            htmlString += "<p class='card-text'>Volume: " + module.Module.Volume.join(", ") + "</p>";
-            htmlString += "<p class='card-text'>Weights: " + module.Module.weights.join(", ") + "</p>";
-            htmlString += "<table class='table'>";
-            htmlString += "<thead><tr><th>Day</th><th>Time</th><th>Location</th></tr></thead>";
-            htmlString += "<tbody>";
-            for (var k = 0; k < module.Timetable.length; k++) {
-                var event = module.Timetable[k];
-                htmlString += "<tr><td>" + event.Day + "</td><td>" + event.Time + "</td><td>" + event.Location + "</td></tr>";
-            }
-            htmlString += "</tbody>";
-            htmlString += "</table>";
-            htmlString += "</div>";
-            htmlString += "</div>";
-            htmlString += "</div>";
-        }
-        htmlString += "</div>";
-    }
+        let nameHtmlString = `
+            <div class='row'>
+                <div class='col'>
+                    <h2>${name}</h2>
+                </div>
+            </div>
+            <div class='row'>
+                ${modulesHtmlString}
+            </div>
+        `;
+        return nameHtmlString;
+    }).join('');
 
     moduleContainer.innerHTML = htmlString;
 }
 
 
 
-var formContainer = document.getElementById('form-container');
-var form = document.getElementById('module-form');
-var addModuleBtn = document.getElementById('add-module-btn');
+
+const formContainer = document.getElementById('form-container');
+const form = document.getElementById('module-form');
+const addModuleBtn = document.getElementById('add-module-btn');
 
 // Show form when button is clicked
 addModuleBtn.addEventListener("click", function() {
@@ -107,17 +122,17 @@ form.addEventListener("submit", function(e) {
     e.preventDefault(); // prevent form from refreshing the page
 
     // Get form data
-    var name = document.getElementById('name-input').value;
-    var course = document.getElementById('course-input').value;
-    var academic = document.getElementById('academic-input').value;
-    var programmeCode = document.getElementById('programme-code-input').value;
-    var assignments = document.getElementById('assignment-input').value.split(',');
-    var learningOutcomes = document.getElementById('learning-outcomes-input').value.split(',');
-    var volume = document.getElementById('volume-input').value.split(',');
-    var weights = document.getElementById('weights-input').value.split(',');
+    const name = document.getElementById('name-input').value;
+    const course = document.getElementById('course-input').value;
+    const academic = document.getElementById('academic-input').value;
+    const programmeCode = document.getElementById('programme-code-input').value;
+    const assignments = document.getElementById('assignment-input').value.split(',');
+    const learningOutcomes = document.getElementById('learning-outcomes-input').value.split(',');
+    const volume = document.getElementById('volume-input').value.split(',');
+    const weights = document.getElementById('weights-input').value.split(',');
 
     // Create module object
-    var module = {
+    const module = {
         "Name": name,
         "Course": course,
         "Academic": academic,
@@ -133,7 +148,7 @@ form.addEventListener("submit", function(e) {
     // Save module object to file
 
     // Determine file name based on module name
-    var fileName;
+    let fileName;
     if (name === "Undergraduate") {
         fileName = "module-1.json";
     } else if (name === "Research") {
@@ -146,31 +161,31 @@ form.addEventListener("submit", function(e) {
     }
 
     // Save module object to file
-    var fileUrl = "/Volumes/1TB\ DRIVE/Repositories/CIS2169-Academic-Management-System/ " + fileName;
-    var file = new File([JSON.stringify(module)], fileUrl, {
+    const fileUrl = `/Volumes/1TB\ DRIVE/Repositories/CIS2169-Academic-Management-System/ ${fileName}`;
+    const file = new File([JSON.stringify(module)], fileUrl, {
         type: "application/json"
     });
-    var fileWriter = new FileWriter();
+    const fileWriter = new fileWriter();
     fileWriter.write(file);
     fileWriter.onerror = function(e) {
-        console.error("Failed to save module:", e);
+        console.error("Failed to save created module:", e);
     };
     fileWriter.onwriteend = function() {
-        console.log("Module saved successfully!");
+        console.log("Module has been saved successfully!");
     };
 
-    // Clear form fields
     form.reset();
     formContainer.style.display = 'none';
 });
 
+
 const modules = ["module-1.json", "module-2.json", "module-3.json"];
 
-const createTimetableBtn = document.getElementById("create-timetable-btn");
+const createTimeBtn = document.getElementById("create-timetable-btn");
 const timetable = document.getElementById("timetable");
 
-createTimetableBtn.addEventListener("click", () => {
-    timetable.innerHTML = ""; // Clear any existing timetables
+createTimeBtn.addEventListener("click", () => {
+    timetable.innerHTML = "";
 
     for (const module of modules) {
         fetch(module)
@@ -180,9 +195,7 @@ createTimetableBtn.addEventListener("click", () => {
                     const {
                         ProgrammeCode,
                         Name,
-                        Academic,
                         Course,
-                        Module,
                         Timetable
                     } = item;
                     const table = document.createElement("table");
