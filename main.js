@@ -3,19 +3,27 @@ var moduleContainer = document.getElementById('module-info');
 var btn = document.getElementById("btn");
 
 btn.addEventListener("click", function(){
-  var ourRequest = new XMLHttpRequest();
-  ourRequest.open('GET', 'module-'+ pageCounter +'.json'); // changed URL to local file path
-  ourRequest.onload = function(){
-    var ourData = JSON.parse(ourRequest.responseText);
-    renderHTML(ourData);
-  };
-  ourRequest.send();
-  
-  pageCounter++;
-  
-  if (pageCounter > 3){
-    btn.disabled = true;
+  var allData = [];
+  var requestCount = 0;
+
+  function requestJSON(url) {
+    var ourRequest = new XMLHttpRequest();
+    ourRequest.open('GET', url);
+    ourRequest.onload = function(){
+      var ourData = JSON.parse(ourRequest.responseText);
+      allData.push(...ourData);
+      requestCount++;
+
+      if (requestCount === 3) {
+        renderHTML(allData);
+      }
+    };
+    ourRequest.send();
   }
+
+  requestJSON('module-1.json');
+  requestJSON('module-2.json');
+  requestJSON('module-3.json');
 });
 
 function renderHTML(data){
@@ -38,8 +46,10 @@ function renderHTML(data){
     htmlString += "</div>";
 
     var academicModules = academics[academic];
+    htmlString += "<div class='row'>";
     for (var j = 0; j < academicModules.length; j++) {
       var module = academicModules[j];
+      htmlString += "<div class='col-md-4'>";
       htmlString += "<div class='card mb-3'>";
       htmlString += "<div class='card-body'>";
       htmlString += "<h5 class='card-title'>" + module.Name + "</h5>";
@@ -52,7 +62,9 @@ function renderHTML(data){
       htmlString += "<p class='card-text'>Weights: " + module.Module.weights.join(", ") + "</p>";
       htmlString += "</div>";
       htmlString += "</div>";
+      htmlString += "</div>";
     }
+    htmlString += "</div>";
   }
 
   moduleContainer.innerHTML = htmlString;
