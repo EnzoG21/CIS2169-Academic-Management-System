@@ -27,28 +27,41 @@ btn.addEventListener("click", function(){
 });
 
 function renderHTML(data){
-  var academics = {}; // object to store modules for each academic
+  data.sort(function(a, b) {
+    var nameA = a.Name.toUpperCase(); // ignore upper and lowercase
+    var nameB = b.Name.toUpperCase(); // ignore upper and lowercase
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    // names must be equal
+    return 0;
+  });
+
+  var modulesByName = {}; // object to store modules for each name
 
   for (var i = 0; i < data.length; i++) {
-    var academic = data[i].Academic;
-    if (!academics[academic]) {
-      academics[academic] = []; // create empty array if academic doesn't exist in object
+    var name = data[i].Name;
+    if (!modulesByName[name]) {
+      modulesByName[name] = []; // create empty array if name doesn't exist in object
     }
-    academics[academic].push(data[i]); // push module into academic array
+    modulesByName[name].push(data[i]); // push module into name array
   }
 
   var moduleContainer = document.getElementById('module-info');
   var htmlString = "";
 
-  for (var academic in academics) {
+  for (var name in modulesByName) {
     htmlString += "<div class='row'>";
-    htmlString += "<div class='col'><h2>" + academic + "</h2></div>";
+    htmlString += "<div class='col'><h2>" + name + "</h2></div>";
     htmlString += "</div>";
 
-    var academicModules = academics[academic];
+    var nameModules = modulesByName[name];
     htmlString += "<div class='row'>";
-    for (var j = 0; j < academicModules.length; j++) {
-      var module = academicModules[j];
+    for (var j = 0; j < nameModules.length; j++) {
+      var module = nameModules[j];
       htmlString += "<div class='col-md-4'>";
       htmlString += "<div class='card mb-3'>";
       htmlString += "<div class='card-body'>";
@@ -69,6 +82,7 @@ function renderHTML(data){
 
   moduleContainer.innerHTML = htmlString;
 }
+
 
 var formContainer = document.getElementById('form-container');
 var form = document.getElementById('module-form');
@@ -108,14 +122,31 @@ form.addEventListener("submit", function(e) {
   };
 
   // Save module object to file
- var file = 'module-1.json';
-  var content = JSON.stringify(module);
-  var blob = new Blob([content], {type: 'application/json'});
-  var url = URL.createObjectURL(blob);
-  var a = document.createElement('a');
-  a.href = url;
-  a.download = file;
-  a.click();
+
+   // Determine file name based on module name
+  var fileName;
+  if (name === "Undergraduate") {
+    fileName = "module-1.json";
+  } else if (name === "Research") {
+    fileName = "module-2.json";
+  } else if (name === "Post-Graduate") {
+    fileName = "module-3.json";
+  } else {
+    console.error("Invalid module name");
+    return;
+  }
+
+  // Save module object to file
+  var fileUrl = "/Volumes/1TB\ DRIVE/Repositories/CIS2169-Academic-Management-System/ " + fileName;
+  var file = new File([JSON.stringify(module)], fileUrl, {type: "application/json"});
+  var fileWriter = new FileWriter();
+  fileWriter.write(file);
+  fileWriter.onerror = function(e) {
+    console.error("Failed to save module:", e);
+  };
+  fileWriter.onwriteend = function() {
+    console.log("Module saved successfully!");
+  };
 
   // Clear form fields
   form.reset();

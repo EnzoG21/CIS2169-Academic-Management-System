@@ -1,9 +1,45 @@
 [
   {
-    "ProgrammeCode": "PGDB",
+    "ProgrammeCode": "PG10",
     "Name": "Post-Graduate",
-    "Academic": "Dr. Mark Johnson",
+    "Academic": "Dr. Dan Campbell",
     "Course":"Big Data",
+    "Module": {
+      "Learning_outcomes":["LO1", "LO2"],
+      "Assignment":["CW1", "CW2"],
+      "Volume":["1000 words", "4000 words"],
+      "weights":["20%", "80%"]
+    }
+  },
+  {
+    "ProgrammeCode": "PG11",
+    "Name": "Post-Graduate",
+    "Academic": "Dr. Dan Campbell",
+    "Course":"Cyber Security",
+    "Module": {
+      "Learning_outcomes":["LO1", "LO2"],
+      "Assignment":["CW1", "CW2"],
+      "Volume":["1000 words", "4000 words"],
+      "weights":["20%", "80%"]
+    }
+  },
+  {
+    "ProgrammeCode": "PG12",
+    "Name": "Post-Graduate",
+    "Academic": "Martin Lurpak",
+    "Course":"Computing",
+    "Module": {
+      "Learning_outcomes":["LO1", "LO2"],
+      "Assignment":["CW1", "CW2"],
+      "Volume":["1000 words", "4000 words"],
+      "weights":["20%", "80%"]
+    }
+  },
+  {
+    "ProgrammeCode": "PG13",
+    "Name": "Post-Graduate",
+    "Academic": "Dr. Dan Campbell",
+    "Course":"Data Science and Artifical Intelligence",
     "Module": {
       "Learning_outcomes":["LO1", "LO2"],
       "Assignment":["CW1", "CW2"],

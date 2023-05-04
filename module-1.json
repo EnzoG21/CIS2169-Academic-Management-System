@@ -1,8 +1,8 @@
 [
   {
-    "ProgrammeCode": "PGDB",
+    "ProgrammeCode": "W4D7",
     "Name": "Undergraduate",
-    "Academic": "Dr. Mark Johnson",
+    "Academic": "Dave Walsh",
     "Course":"Web Development",
     "Module": {
       "Learning_outcomes":["LO1", "LO2"],
@@ -12,10 +12,10 @@
     }
   },
   {
-    "ProgrammeCode": "PGDB",
+    "ProgrammeCode": "G600",
     "Name": "Undergraduate",
-    "Academic": "Dr. Bob Johnson",
-    "Course":"Web Development",
+    "Academic": "Dr. Mark Benson",
+    "Course":"Computer Engineering",
     "Module": {
       "Learning_outcomes":["LO1", "LO2"],
       "Assignment":["CW1", "CW2"],
@@ -24,10 +24,46 @@
     }
   },
   {
-    "ProgrammeCode": "PGDB",
+    "ProgrammeCode": "CS12",
     "Name": "Undergraduate",
-    "Academic": "Dr. Mark Johnson",
-    "Course":"Web Development",
+    "Academic": "Marcello Trovati",
+    "Course":"Computer Science",
+    "Module": {
+      "Learning_outcomes":["LO1", "LO2"],
+      "Assignment":["CW1", "CW2"],
+      "Volume":["1000 words", "4000 words"],
+      "weights":["20%", "80%"]
+    }
+  },
+  {
+    "ProgrammeCode": "II33",
+    "Name": "Undergraduate",
+    "Academic": "Dr. Franklin Jones",
+    "Course":"Software Engineering",
+    "Module": {
+      "Learning_outcomes":["LO1", "LO2"],
+      "Assignment":["CW1", "CW2"],
+      "Volume":["1000 words", "4000 words"],
+      "weights":["20%", "80%"]
+    }
+  },
+  {
+    "ProgrammeCode": "GI11",
+    "Name": "Undergraduate",
+    "Academic": "Adam Trolle",
+    "Course":"Data Science",
+    "Module": {
+      "Learning_outcomes":["LO1", "LO2"],
+      "Assignment":["CW1", "CW2"],
+      "Volume":["1000 words", "4000 words"],
+      "weights":["20%", "80%"]
+    }
+  },
+  {
+    "ProgrammeCode": "G401",
+    "Name": "Undergraduate",
+    "Academic": "Martin Lurpak",
+    "Course":"Computing",
     "Module": {
       "Learning_outcomes":["LO1", "LO2"],
       "Assignment":["CW1", "CW2"],
