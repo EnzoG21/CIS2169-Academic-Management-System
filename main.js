@@ -1,8 +1,8 @@
 var pageCounter = 1;
 var moduleContainer = document.getElementById('module-info');
-var btn = document.getElementById("btn");
+var info = document.getElementById("info");
 
-btn.addEventListener("click", function(){
+info.addEventListener("click", function(){
   var allData = [];
   var requestCount = 0;
 
@@ -61,9 +61,9 @@ function renderHTML(data) {
     htmlString += "<div class='row'>";
     for (var j = 0; j < nameModules.length; j++) {
       var module = nameModules[j];
-      htmlString += "<div class='col-md-4'>";
+      htmlString += "<div class='col-md-6'>";
       htmlString += "<div class='card mb-3'>";
-      htmlString += "<div class='card-body'>";
+      htmlString += "<div class='card-body wider'>";
       htmlString += "<h5 class='card-title'>" + module.Name + "</h5>";
       htmlString += "<p class='card-text'>Course: " + module.Course + "</p>";
       htmlString += "<p class='card-text'>Academic: " + module.Academic + "</p>";
@@ -161,3 +161,80 @@ form.addEventListener("submit", function(e) {
   form.reset();
   formContainer.style.display = 'none';
 });
+
+
+
+var createTimetableBtn = document.getElementById("create-timetable-btn");
+
+createTimetableBtn.addEventListener("click", function() {
+  var allData = [];
+  var requestCount = 0;
+
+  function requestJSON(url) {
+    var ourRequest = new XMLHttpRequest();
+    ourRequest.open('GET', url);
+    ourRequest.onload = function(){
+      var ourData = JSON.parse(ourRequest.responseText);
+      allData.push(...ourData);
+      requestCount++;
+
+      if (requestCount === 3) {
+        renderTimetable(allData);
+      }
+    };
+    ourRequest.send();
+  }
+
+  requestJSON('module-1.json');
+  requestJSON('module-2.json');
+  requestJSON('module-3.json');
+});
+
+
+function renderTimetable(data) {
+  var daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+  var timeSlots = ['8:00 - 10:00', '10:00 - 12:00', '12:00 - 14:00', '14:00 - 16:00', '16:00 - 18:00'];
+  var timetable = {};
+
+  // create an empty timetable object with days of the week as keys and an array of time slots as values
+  for (var i = 0; i < daysOfWeek.length; i++) {
+    timetable[daysOfWeek[i]] = [];
+    for (var j = 0; j < timeSlots.length; j++) {
+      timetable[daysOfWeek[i]].push("");
+    }
+  }
+
+  // fill in the timetable with the data from the JSON files
+  for (var k = 0; k < data.length; k++) {
+    var module = data[k];
+    for (var l = 0; l < module.Timetable.length; l++) {
+      var event = module.Timetable[l];
+      var dayIndex = daysOfWeek.indexOf(event.Day);
+      var timeIndex = timeSlots.indexOf(event.Time);
+      timetable[daysOfWeek[dayIndex]][timeIndex] += "<div>" + module.Name + "<br>" + event.Location + "</div>";
+    }
+  }
+
+  // render the timetable in the HTML
+  var timetableContainer = document.getElementById('timetable');
+  var htmlString = "";
+
+  htmlString += "<table class='table'>";
+  htmlString += "<thead><tr><th></th>";
+  for (var m = 0; m < daysOfWeek.length; m++) {
+    htmlString += "<th>" + daysOfWeek[m] + "</th>";
+  }
+  htmlString += "</tr></thead>";
+  htmlString += "<tbody>";
+  for (var n = 0; n < timeSlots.length; n++) {
+    htmlString += "<tr><td>" + timeSlots[n] + "</td>";
+    for (var o = 0; o < daysOfWeek.length; o++) {
+      htmlString += "<td>" + timetable[daysOfWeek[o]][n] + "</td>";
+    }
+    htmlString += "</tr>";
+  }
+  htmlString += "</tbody>";
+  htmlString += "</table>";
+
+  timetableContainer.innerHTML = htmlString;
+}
