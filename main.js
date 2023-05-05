@@ -25,6 +25,8 @@ info.addEventListener("click", function() {
     requestJSON('module-2.json');
     requestJSON('module-3.json');
 });
+//the code above is used to pull all 3 JSON files locally when the button is clicked
+
 
 function renderHTML(data) {
     data.sort(function(a, b) {
@@ -38,7 +40,7 @@ function renderHTML(data) {
         }
         return 0;
     });
-
+//code above is used to sort the name category of the JSON so they appear correctly on the page
     const modulesByName = {};
 
     for (const element of data) {
@@ -104,6 +106,7 @@ function renderHTML(data) {
 
     moduleContainer.innerHTML = htmlString;
 }
+//this code is used to display the data from the json in HTML using integrated bootstrap for stylling
 
 
 
@@ -112,16 +115,16 @@ const formContainer = document.getElementById('form-container');
 const form = document.getElementById('module-form');
 const addModuleBtn = document.getElementById('add-module-btn');
 
-// Show form when button is clicked
+// this shows the form when button is clicked
 addModuleBtn.addEventListener("click", function() {
     formContainer.style.display = 'block';
 });
 
-// Submit form data
+// this submits the form data 
 form.addEventListener("submit", function(e) {
     e.preventDefault(); // prevent form from refreshing the page
 
-    // Get form data
+    // we create constants to get the data from the form
     const name = document.getElementById('name-input').value;
     const course = document.getElementById('course-input').value;
     const academic = document.getElementById('academic-input').value;
@@ -131,7 +134,7 @@ form.addEventListener("submit", function(e) {
     const volume = document.getElementById('volume-input').value.split(',');
     const weights = document.getElementById('weights-input').value.split(',');
 
-    // Create module object
+    // here we create a object of what needs to be added in the json
     const module = {
         "Name": name,
         "Course": course,
@@ -145,9 +148,7 @@ form.addEventListener("submit", function(e) {
         }
     };
 
-    // Save module object to file
-
-    // Determine file name based on module name
+    // this is used to sort so that each name is then saved to the correct json such as Undergraduate
     let fileName;
     if (name === "Undergraduate") {
         fileName = "module-1.json";
@@ -160,7 +161,7 @@ form.addEventListener("submit", function(e) {
         return;
     }
 
-    // Save module object to file
+    // save the data we got locally into the json files
     const fileUrl = `/Volumes/1TB\ DRIVE/Repositories/CIS2169-Academic-Management-System/ ${fileName}`;
     const file = new File([JSON.stringify(module)], fileUrl, {
         type: "application/json"
@@ -179,6 +180,7 @@ form.addEventListener("submit", function(e) {
 });
 
 
+
 const modules = ["module-1.json", "module-2.json", "module-3.json"];
 
 const createTimeBtn = document.getElementById("create-timetable-btn");
@@ -186,7 +188,7 @@ const timetable = document.getElementById("timetable");
 
 createTimeBtn.addEventListener("click", () => {
     timetable.innerHTML = "";
-
+//this is used for when we click on the button it displays the html
     for (const module of modules) {
         fetch(module)
             .then(response => response.json())
@@ -198,13 +200,14 @@ createTimeBtn.addEventListener("click", () => {
                         Course,
                         Timetable
                     } = item;
+                    //in the code above we fetch a specific type of data from the json
                     const table = document.createElement("table");
                     table.classList.add("table", "table-bordered", "table-striped", "mt-5");
                     const caption = document.createElement("caption");
                     caption.classList.add("text-center", "mb-5");
                     caption.textContent = `${ProgrammeCode} - ${Name} - ${Course}`;
                     table.appendChild(caption);
-
+// here we create the table with a title
                     const headerRow = document.createElement("tr");
                     headerRow.classList.add("table-dark");
                     const header1 = document.createElement("th");
@@ -220,7 +223,7 @@ createTimeBtn.addEventListener("click", () => {
                     header3.textContent = "Location";
                     headerRow.appendChild(header3);
                     table.appendChild(headerRow);
-
+//here we create the different rows of data
                     for (const timetableItem of Timetable) {
                         const row = document.createElement("tr");
                         const cell1 = document.createElement("td");
@@ -235,8 +238,9 @@ createTimeBtn.addEventListener("click", () => {
                         table.appendChild(row);
                     }
                     timetable.appendChild(table);
+                    //and not we add the json data into the cells
                 }
             })
             .catch(error => console.log(`Failed to fetch ${module}: ${error}`));
-    }
+    }//error message in case it fails
 });
